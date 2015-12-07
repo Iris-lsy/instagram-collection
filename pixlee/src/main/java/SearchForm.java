@@ -20,10 +20,10 @@ public class SearchForm {
 
 
 	public SearchForm(HttpServletRequest request) {
-		this.tagString = request.getParameter("tag").trim();
-		this.startDateString = request.getParameter("start").trim();
-		this.endDateString = request.getParameter("end").trim();
-		this.actionString = request.getParameter("action").trim();
+		this.tagString = request.getParameter("tag");
+		this.startDateString = request.getParameter("start");
+		this.endDateString = request.getParameter("end");
+		this.actionString = request.getParameter("action");
 	}
 
 	public String getTagString() {
@@ -69,24 +69,30 @@ public class SearchForm {
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
 
-		if (tagString == null || tagString.length() == 0) {
+		if (tagString == null || tagString.trim().length() == 0) {
 			errors.add("Tag input is required");
 		}
 
-		if (startDateString == null || startDateString.length() == 0) {
+		if (startDateString == null || startDateString.trim().length() == 0) {
 			errors.add("Start Date is required.");
 		}
-		if (endDateString == null || endDateString.length() == 0) {
+		if (endDateString == null || endDateString.trim().length() == 0) {
 			errors.add("End Date is required.");
 		}
 
-		if (actionString == null || actionString.length() == 0) {
+		if (actionString == null || actionString.trim().length() == 0) {
 			errors.add("Action is required.");
 		}
 
-		if (errors.size() > 0)
+		if (errors.size() > 0) {
 			return errors;
-
+		}
+			
+		tagString = tagString.trim();
+		startDateString = startDateString.trim();
+		endDateString = endDateString.trim();
+		actionString = actionString.trim();
+		
 		if (!actionString.equals("Search")) {
 			errors.add("Invalid action.");
 		}

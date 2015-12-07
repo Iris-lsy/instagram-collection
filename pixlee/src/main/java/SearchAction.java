@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import Bean.Pic;
+
 /* TODO: 
  * Add error message
  * validate input
@@ -46,10 +48,14 @@ public class SearchAction {
 
 		ArrayList<Pic> picArray = getImageByTag(tagString, startDate, endDate);
 		request.setAttribute("picArray", picArray);
+		
 		System.out.println(tagString);
 		System.out.println(startDate);
 		System.out.println(endDate);
-		System.out.println("result: " + picArray.toString());
+		//System.out.println("result: " + picArray.toString());
+
+		ArrayList<Pic> testArrayList = (ArrayList<Pic>) request.getAttribute("picArray");
+		System.out.println("result: " + testArrayList.toString());
 
 
 		
@@ -93,7 +99,7 @@ public class SearchAction {
 					continue;
 				}
 				
-				String picUrl = obj.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
+				String picUrl = obj.getJSONObject("images").getJSONObject("low_resolution").getString("url");
 				String link = obj.getString("link");
 				
 				Pic pic = new Pic();
